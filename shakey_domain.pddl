@@ -1,30 +1,29 @@
 (define (domain shakey)
-(:requeriments :adl)
-(:predicates
-  (at ?who ?room)
-  (door ?room-1 ?room-2)
-  (wide-door ?room-1 ?room-2)
-  (light-on ?room)
-  (box-in ?room)
-  (free-hand ?hand)
-  (is-shakey ?who)
-  (is-box ?what)
-  (is-smallobject ?what)
-  (is-switch ?room)
-  )
+  (:requirements :adl)
+  (:predicates
+    (at ?who ?room)
+    (door ?room-1 ?room-2)
+    (wide-door ?room-1 ?room-2)
+    (light-on ?room)
+    (box-in ?room)
+    (free-hand ?hand)
+    (is-shakey ?who)
+    (is-box ?what)
+    (is-smallobject ?what)
+    (is-switch ?room))
 
-(:action move
-  :parameters (?who ?from ?to)
-  :preconditions (and
+  (:action move
+    :parameters (?who ?from ?to)
+    :precondition (and
                   (is-shakey ?who)
                   (or (door ?from ?to)(wide-door ?from ?to))
                   )
-  :effect (and (not (at ?who ?from)) (at ?who ?to))
-)
+    :effect (and (not (at ?who ?from)) (at ?who ?to))
+    )
 
 (:action push
   :parameters(?who ?from ?to ?what)
-  :preconditions (and (is-shakey ?who)
+  :precondition (and (is-shakey ?who)
                       (at ?who ?from)
                       (at ?what ?from)
                       (is-box ?what)
@@ -38,7 +37,7 @@
 
   (:action turn-light-on
     :parameters (?who ?where)
-    :preconditions (and (is-shakey ?who)
+    :precondition (and (is-shakey ?who)
                         (is-switch ?where)
                         (at ?who ?where)
                         (box-in ?where)
@@ -49,7 +48,7 @@
 
     (:action turn-light-off
       :parameters (?who ?where)
-      :preconditions (and (is-shakey ?who)
+      :precondition (and (is-shakey ?who)
                           (is-switch ?where)
                           (at ?who ?where)
                           (box-in ?where)
@@ -60,7 +59,7 @@
 
     (:action take-object
       :parameters (?who ?what ?hand ?where)
-      :preconditions (and
+      :precondition (and
                       (is-shakey ?who)
                       (is-smallobject ?what)
                       (free-hand ?hand)
@@ -74,7 +73,7 @@
 
     (:action leave-object
       :parameters (?who ?what ?hand ?where)
-      :preconditions (and
+      :precondition (and
                       (is-shakey ?who)
                       (is-smallobject ?what)
                       (at ?what ?hand)
