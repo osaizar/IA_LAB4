@@ -5,7 +5,6 @@
     (door ?room-1 ?room-2)
     (wide-door ?room-1 ?room-2)
     (light-on ?room)
-    (box-in ?room)
     (free-hand ?hand)
     (is-shakey ?who)
     (is-box ?what)
@@ -35,21 +34,21 @@
     )
 
   (:action turn-light-on
-    :parameters (?who ?where)
+    :parameters (?who ?where ?box)
     :precondition (and (is-shakey ?who)
                        (is-switch ?where)
                        (at ?who ?where)
-                       (box-in ?where)
+                       (at ?box ?where)
                        (not (light-on ?where)))
     :effect (light-on ?where)
     )
 
   (:action turn-light-off
-    :parameters (?who ?where)
+    :parameters (?who ?where ?box)
     :precondition (and (is-shakey ?who)
                        (is-switch ?where)
                        (at ?who ?where)
-                       (box-in ?where)
+                       (at ?box ?where)
                        (light-on ?where))
     :effect (not (light-on ?where))
     )
