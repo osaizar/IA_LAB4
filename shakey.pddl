@@ -79,7 +79,7 @@
                        (at ?what ?hand)
                        (at ?who ?where))
     :effect (and (free-hand ?hand)
-                 (not (at ?what ?hand))
+                 (not (at ?what ?where))
                  (at ?what ?where))
     )
 )

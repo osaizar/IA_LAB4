@@ -12,6 +12,7 @@
          (at triangle room-2) (at circle room-3)
          (is-box box) (is-shakey shakey)
          (at box room-1) (at shakey room-1)
+         (is-hand hand-1)(is-hand hand-2)
          (free-hand hand-1) (free-hand hand-2))
   (:goal (and (at triangle room-3) (at circle room-2)))
 )
