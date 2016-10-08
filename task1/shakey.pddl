@@ -1,17 +1,20 @@
 (define (domain shakey)
+  ; For the disjunctions (we have checked that our planners work fine with it)
+  ; Planners used: FF and LAMA
   (:requirements :adl)
   (:predicates
-    (at ?who ?room)
-    (door ?room-1 ?room-2)
-    (wide-door ?room-1 ?room-2)
-    (light-on ?room)
-    (free-hand ?hand)
-    (is-hand ?hand)
-    (is-shakey ?who)
-    (is-box ?what)
-    (is-small-obj ?what)
-    (switch-in ?room))
+    (at ?who ?room)              ; For checking the position of an object
+    (door ?room-1 ?room-2)       ; Is there a door from room-1 to room-2
+    (wide-door ?room-1 ?room-2)  ; " but with wide doors
+    (light-on ?room)             ; Check if the light is on
+    (free-hand ?hand)            ; Check if the hand that you want is free
+    (is-hand ?hand)              ; Check if that object is a hand
+    (is-shakey ?who)             ; Check if that object is Shakey
+    (is-box ?what)               ; Check if that object is a box
+    (is-small-obj ?what)         ; Check if that object is small
+    (switch-in ?room))           ; Check if there is a switch for the light
 
+  ; Commands Shakey to move from one room to another.
   (:action move
     :parameters (?who ?from ?to)
     :precondition (and (is-shakey ?who)
@@ -22,6 +25,7 @@
                  (at ?who ?to))
     )
 
+  ; Shakey moves from one room to another while pushing a box
   (:action push-box
     :parameters (?who ?from ?to ?what)
     :precondition (and (is-shakey ?who)
@@ -35,6 +39,7 @@
                  (at ?who ?to))
     )
 
+  ; Shakey turns on the light of one room
   (:action turn-light-on
     :parameters (?who ?where ?box)
     :precondition (and (is-shakey ?who)
@@ -46,6 +51,7 @@
     :effect (light-on ?where)
     )
 
+  ; Shakey turns off the light of one room
   (:action turn-light-off
     :parameters (?who ?where ?box)
     :precondition (and (is-shakey ?who)
@@ -57,6 +63,7 @@
     :effect (not (light-on ?where))
     )
 
+  ; Shakey picks up one object from the room he is in
   (:action pick-up-obj
     :parameters (?who ?what ?hand ?where)
     :precondition (and (is-shakey ?who)
@@ -71,6 +78,7 @@
                  (at ?what ?hand))
     )
 
+  ; Shakey drops an object in the room he is in
   (:action drop-obj
     :parameters (?who ?what ?hand ?where)
     :precondition (and (is-shakey ?who)

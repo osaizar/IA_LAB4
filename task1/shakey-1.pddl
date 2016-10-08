@@ -4,6 +4,9 @@
             door1 door2 door3
             smallobj1 smallobj2 smallobj3
             box shakey hand1 hand2)
+  ; All the lights are off, there are two objects in the room2 and one in the
+  ; room3. The only box for turning on the switches is in the room1. Shakey
+  ; starts in the room 2
   (:init (switch-in room1)(switch-in room2)
          (switch-in room3)  (door room2 room3)
          (door room3 room2) (wide-door room1 room2)
@@ -15,5 +18,6 @@
          (is-small-obj smallobj2) (is-small-obj smallobj3)
          (at smallobj1 room2) (at smallobj2 room3) (at smallobj3 room3)
   )
+  ; The goal is to put all the objects in the room1
   (:goal (and (at smallobj1 room1)(at smallobj2 room1)(at smallobj3 room1)))
 )
